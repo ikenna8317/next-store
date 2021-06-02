@@ -17,10 +17,6 @@ export default function App() {
 
   let [fontsLoaded] = useFonts({OpenSans_400Regular});
 
-  const navigationOptions = {
-    headerMode: 'none'
-  }
-
   if (!fontsLoaded) {
     return <AppLoading/>;
   }
