@@ -8,6 +8,7 @@ import { useFonts, OpenSans_400Regular } from '@expo-google-fonts/open-sans';
 // import { Button } from '@material-ui/core/Button';
 // import LoginSignupPage from './pages/login_signup.js';
 import LoginSignupPage from './pages/login_signup';
+import HomePage from './pages/home';
 
 
 const Stack = createStackNavigator();
@@ -25,7 +26,8 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Login-Signup" component={LoginSignupPage} options={{headerShown: false}}/>
+          <Stack.Screen name="Home" component={HomePage} options={{headerShown: false}}/>
+          {/* <Stack.Screen name="Login-Signup" component={LoginSignupPage} options={{headerShown: false}}/> */}
         </Stack.Navigator>
       </NavigationContainer>
     );
