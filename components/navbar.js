@@ -9,13 +9,13 @@ export default function NavBar({withHomeIcon, withAccountBtn}) {
     return (
         <View style={{
          position: 'relative',
-         top: 0,
+        //  top: 0,
           width: '100%',
          flexDirection: 'row',
           paddingHorizontal: 11,
           paddingVertical: 11,
           backgroundColor: '#5E5E5E',
-          borderWidth: 1
+          
          }}>
             <View style={{marginRight: 22}}>
                 <Feather name="menu" size={24} color="#E3E3E3" />
@@ -33,14 +33,14 @@ function AccountButton({loggedIn}) {
             position: 'absolute', 
             top: 22, 
             right: 30, 
-            paddingVertical: 22, 
-            paddingHorizontal: 25, 
+            paddingVertical: 19, //22 
+            paddingHorizontal: 20, //25 
             backgroundColor: '#5E5E5E', 
             borderRadius: 50, 
             borderWidth: 2, 
             borderColor: '#e3e3e3'
         }}>
-            
+            { loggedIn ? null : <AntDesign name="user" size={24} color="#E3E3E3" /> }
         </View>
     );
 }
