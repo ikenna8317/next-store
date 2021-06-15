@@ -141,7 +141,7 @@ const mockData = [
     }
 ]
 
-function HomePage({ searchQuery }) {
+function Home({ searchQuery }) {
     
     const [hasQueried, setHasQueried] = useState(true);
 
@@ -171,7 +171,7 @@ const mapStateToProps = state => ({
     searchQuery: state.searchQuery
 })
 
-export default connect(mapStateToProps)(HomePage)
+export default connect(mapStateToProps)(Home)
 
 
 

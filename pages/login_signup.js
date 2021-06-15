@@ -5,7 +5,7 @@ import Copyright from '../components/copyright';
 import OverlaySVG from '../assets/svg/svg-overlay.svg';
 import AddUserSVG from '../assets/svg/undraw_Add_user_re_5oib.svg';
 
-export default function LoginSignupPage() {
+export default function LoginSignup() {
 
     return (
         <View style={styles.container}>
