@@ -8,19 +8,24 @@ import {
     StatusBar, 
     Text, 
     Image, 
-    SectionList
+    
 } from 'react-native';
 import { connect } from 'react-redux';
+// import { gl_setFocusedProduct } from '../redux_side/action_creators'
+import { useNavigation } from '@react-navigation/native';
 
 
 import NavBar from '../components/navbar.js';
 import SearchBar from '../components/searchbar.js';
+import ProductCategorySect from '../components/productCategory.js';
 import Logo from '../assets/svg/NEXT.svg';
 
 //Rule for images within VirtualizedLists i.e. SectionLists, FlatLists, ...
 // is that their width should be [(width of image in design / width of phone frame in design) * 100] percent to accomodate for as much screen size as possible
 // const {screenWidth, screenHeight} = Dimensions.get('window');
 
+
+//fetch data here
 const mockSections = [
     {
         title: 'Most Popular',
@@ -64,7 +69,7 @@ const mockSections = [
         data: [
             [
                 {
-                    uri: 'https://th.bing.com/th/id/Ra95f374a80c6792a24bbecdce1a8112d?rik=6jqyUdxZv6Jtiw&riu=http%3a%2f%2fwallpapersdsc.net%2fwp-content%2fuploads%2f2016%2f10%2fWhale-Shark-Wallpapers-HD.jpg&ehk=DC%2f4QcXZyxGWSc1c5NQJSriD0AhJMx5kgnS7KGLuYlg%3d&risl=&pid=ImgRaw',
+                    uri: 'https://isdturkishdoors.com/wp-content/uploads/2019/05/SWS-302-Yarim-Kanat-Kisa-copy-300x300.jpg',
                     name:  'SWS-302',
                     price: 43.29
     
@@ -174,67 +179,40 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(Home)
 
 
-
-function ProductCategorySect({data}) {
-    return (
-        <SectionList
-            sections={data}
-            style={styles.sectionList}
-            // keyExtractor={(item, index) => item.name}
-            // <ProductSectionItem name={item.name} price={item.price}/>
-            renderItem={
-                ({item}) => 
-                <FlatList
-                data={item}
-                horizontal={true}
-                renderItem={({item}) => <ProductSectionItem uri={item.uri} name={item.name} price={item.price}/>}
-                />
-            }
-            renderSectionHeader={({section}) => (<Text style={styles.sectionHeader}>{section.title}</Text>)}
-            />
-    )
-}
-
-function ProductSectionItem({uri, name, price}) {
-    return (
-        // 
-    <View style={{width: 185, marginRight: 22}}>
-        <Image source={{uri: uri}} style={{width: '100%', height: 134}}/>
-        <View style={{backgroundColor: 'background: #2323238',  paddingLeft: 4, paddingBottom: 12}}>
-            <Text style={{fontFamily: 'OpenSans_400Regular', fontSize: 10, color: '#E2E2E2'}}>{name}</Text>
-            <Text style={{fontFamily: 'OpenSans_400Regular', fontSize: 10, color: '#E2E2E2', fontWeight: 'bold'}}>₦{price}</Text>
-        </View>
-    </View>
-    );
-}
-
 {/* <View style={styles.searchResGridView}>
            {
                data.map((item) => <SRGridItem uri={item.uri} name={item.name}/>)
            }
        </View> */}
 
-function SRGrid({data}) {
+function SRGrid({data, dispatch}) {
     return (
        <FlatList
        style={styles.searchResFlatGrid}
        data={data}
-       renderItem={({item}) => <SRGridItem uri={item.uri} name={item.name} price={item.price} quantity={item.quantity}/>}
+       renderItem={({item}) => <SRGridItem uri={item.uri} name={item.name} price={item.price} quantity={item.quantity} dispatch={dispatch}/>}
        columnWrapperStyle={styles.searchResFlatGridRow}
        numColumns={2}/>
 
     )
 }
 
-function SRGridItem({uri, name, price, quantity}) {
+function SRGridItem({dispatch, uri, name, price, quantity}) {
     //marginHorizontal: 23, width: `${SRGridImageWidthPercent}%`
+
+    const navigation = useNavigation();
     let stillInStock = true;
     if (quantity <= 0) {
         stillInStock = false;
     }
 
+    const onPress = () => {
+        // dispatch(gl_setFocusedProduct({ uri, name, price, quantity }))
+        navigation.navigate('ProductPage', { uri, name, price, quantity });
+    }
+
     return (
-        <TouchableOpacity style={{ width: '49%', marginBottom: 12}}>
+        <TouchableOpacity style={{ width: '49%', marginBottom: 12}} onPress={() => onPress()}>
             <Image source={{uri: uri}} style={{width: '100%', height: 180}}/>
             {/* <Text style={{backgroundColor: '#242424', paddingHorizontal: 24, paddingVertical: 6}}>{name}</Text> */}
             <View style={{backgroundColor: '#232323', padding: 5}}>
@@ -248,14 +226,14 @@ function SRGridItem({uri, name, price, quantity}) {
     );
 }
 
-function SearchResults({searchQuery, searchRes}) {
+function SearchResults({searchQuery, searchRes, dispatch}) {
     return (
         <View style={styles.searchResContainer}>
             <View style={{alignItems: 'center', marginBottom: 21}}>
                 <Text style={{color: '#CDCDCD', fontSize: 18, fontFamily: 'Roboto_400Regular'}}>[Recommended] Search results for:</Text>
                 <Text style={{color: 'white', fontSize: 18, fontFamily: 'Roboto_500Medium'}}>{searchQuery}</Text>
             </View>
-            <SRGrid data={searchRes}/>
+            <SRGrid data={searchRes} dispatch={dispatch}/>
             
         </View>
 
@@ -284,20 +262,7 @@ const styles = StyleSheet.create({
         marginBottom: 27
     },
 
-    sectionList: {
-        marginLeft: 25,
-        marginTop: 57
-    },
-
-    sectionHeader: {
-        width: 338,
-        fontSize: 18,
-        color: '#CDCDCD',
-        paddingVertical: 21,
-        borderBottomColor: '#E8E8E8',
-        borderBottomWidth: 1,
-        marginBottom: 15
-    },
+   
 
     searchResContainer: {
         // marginTop: 32,

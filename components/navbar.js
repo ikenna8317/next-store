@@ -10,7 +10,8 @@ export default function NavBar({withHomeIcon, withAccountBtn}) {
 
     return (
         <View style={{
-         position: 'relative',
+        //  position: 'absolute',
+         zIndex: 3,
         //  top: 0,
           width: '100%',
          flexDirection: 'row',
