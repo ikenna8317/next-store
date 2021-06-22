@@ -7,4 +7,12 @@ function gl_setSearchQuery(searchQuery) {
     }
 }
 
-export { gl_setSearchQuery }
+// TODO: 
+function gl_setLoginSuccess(userCred) {
+    return {
+        type: constants.LOGIN_SUCCESS,
+        payload: userCred
+    }
+}
+
+export { gl_setSearchQuery, gl_setLoginSuccess }
