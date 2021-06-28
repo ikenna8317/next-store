@@ -14,6 +14,7 @@ import {
 
 
 import Home from './pages/home';
+import CartPage from './pages/cart'
 
 const Drawer = createDrawerNavigator();
 
@@ -29,13 +30,19 @@ export default function DrawerNav() {
          }}
          drawerContent={props => <CustomDrawerComponent {...props}/>}
          drawerContentOptions={{
-             activeTintColor: '#ff7b29'
+             activeTintColor: '#ff7b29',
+             inactiveTintColor: '#cccccc'
          }}
     
          >
             <Drawer.Screen name="Home" component={Home} options={{
                 drawerIcon: ({ size }) => (
                     <AntDesign name="home" size={size} color="#e3e3e3" />
+                )
+            }}/>
+            <Drawer.Screen name="Cart" component={CartPage} options={{
+                drawerIcon: ({ size }) => (
+                    <AntDesign name="shoppingcart" size={size} color="#e3e3e3" />
                 )
             }}/>
             

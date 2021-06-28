@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     View,
     Image,
@@ -8,69 +8,48 @@ import {
     TouchableOpacity,
     ScrollView
  } from 'react-native'
+//  import { DrawerActions } from 'react-navigation'
+//  import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
 import ModalDropdown from 'react-native-modal-dropdown';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { mockSections } from '../mockdata'
+
+import { 
+    gl_addToFavorites, 
+    gl_removeFromFavorites, 
+ } from '../redux_side/action_creators'
+
 // import { connect } from 'react-redux';
 import ProductCategorySect from '../components/productCategory'
 import AddToCartButton from '../components/addToCartBtn';
-
-
 import NavBar from '../components/navbar'
+import { connect } from 'react-redux';
 
-const mockSections = [
-    {
-        title: 'Sponsored',
-        data: [
-            [
-                {
-                    uri: 'https://isdturkishdoors.com/wp-content/uploads/2019/05/SWS-302-Yarim-Kanat-Kisa-copy-300x300.jpg',
-                    name:  'SWS-302',
-                    price: 43.29
-    
-                },
-                {
-                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
-                    name:  'SWS-305',
-                    price: 37.60
-    
-                },
-                {
-                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
-                    name:  'SWS-311',
-                    price: 59.99
-    
-                },
-                {
-                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
-                    name:  'SWS-305',
-                    price: 37.60
-    
-                },
-                {
-                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
-                    name:  'SWS-311',
-                    price: 59.99
-    
-                }
-            ]
-        ]
-    }]
 
-export default function ProductPage({ route }) {
+function ProductPage({ dispatch, route, cartItems }) {
     const { uri, name, price, quantity } = route.params
+
+    let itemInCart = false
+
+    //find out if the current item is already in the shopping cart
+    if (cartItems.map(item => item.name).indexOf(name) !== -1) {
+        itemInCart = true
+    }
 
     return (
         <View style={{flex: 1}}>
+                {/* <ExpoStatusBar style="light"/> */}
             <ScrollView style={styles.mainContainer}>
-                <NavBar/>
+            <NavBar/>
+
                 <View style={styles.imgContainer}>
                     <Image source={{uri: uri}} style={{width: '100%', height: '100%'}}/>
 
                 </View>
                 <View style={styles.inner}>
                     <Text style={styles.productName}>{name}</Text>
-                    <AddToFavoritesButton/>
+                    <AddToFavoritesButton dispatch={dispatch} pid={name} productContext={{uri, name, price}}/>
 
                     <View style={{flex: 1, paddingVertical: 19, borderTopWidth: 1, borderBottomWidth: 1, marginVertical: 27, borderColor: '#8D8D8D'}}>
                         {/* <Text>Seller: </Text> */}
@@ -93,14 +72,29 @@ export default function ProductPage({ route }) {
 
                 
             </ScrollView>
-            <AddToCartButton/>
+            <AddToCartButton dispatch={dispatch} productContext={{uri, name, price, quantity}} itemInCart={itemInCart}/>
 
         </View>
     )
 }
 
-function AddToFavoritesButton() {
+const mapStateToProps = state => ({
+    cartItems: state.cartItems
+})
+
+export default connect(mapStateToProps)(ProductPage)
+
+
+function AddToFavoritesButton({ dispatch, pid, productContext }) {
     const [active, setActive] = useState(false)
+
+    useEffect(() => {
+        if (!active) {
+            dispatch(gl_removeFromFavorites(pid))
+        } else {
+            dispatch(gl_addToFavorites(productContext))
+        }
+    }, [active])
 
     return (
         <TouchableOpacity style={styles.addFavBtn} onPress={() => setActive(!active)}>

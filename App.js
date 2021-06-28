@@ -16,14 +16,15 @@ import LoginSignup from './pages/login_signup';
 import ProductPage from './pages/product'
 
 
-const initialState = {
+const globalInitState = {
   searchQuery: null,
   userCred: null,
-  focusedProduct: null
+  cartItems: [],
+  favItems: []
 }
 
 
-const store = createStore(rootReducer, initialState);
+const store = createStore(rootReducer, globalInitState);
 
 const Stack = createStackNavigator()
 
