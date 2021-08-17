@@ -13,7 +13,7 @@ export default function InputField({label, isSecure}) {
     const [input, onChangeInput] = useState(null)
 
     return (
-        <View style={styles.main}>
+        <View>
             <Text style={styles.label}>{label}</Text>
             <TextInput
             style={styles.input}
@@ -27,9 +27,6 @@ export default function InputField({label, isSecure}) {
 }
 
 const styles = StyleSheet.create({
-    main: {
-        marginBottom: 36
-    },
 
     label: {
         fontSize: 17,
