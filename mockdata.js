@@ -119,7 +119,85 @@ const mockSections = [
     }
 ];
 
+const mockSectionForProductPage = [
+    {
+        title: 'Sponsored',
+        data: [
+            [
+                {
+                    uri: 'https://isdturkishdoors.com/wp-content/uploads/2019/05/SWS-302-Yarim-Kanat-Kisa-copy-300x300.jpg',
+                    name:  'SWS-302',
+                    price: 43.29
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
+                    name:  'SWS-305',
+                    price: 37.60
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
+                    name:  'SWS-311',
+                    price: 59.99
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
+                    name:  'SWS-305',
+                    price: 37.60
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
+                    name:  'SWS-311',
+                    price: 59.99
+    
+                }
+            ]
+        ]
+    },
+    {
+        title: 'Related',
+        data: [
+            [
+                {
+                    uri: 'https://isdturkishdoors.com/wp-content/uploads/2019/05/SWS-302-Yarim-Kanat-Kisa-copy-300x300.jpg',
+                    name:  'SWS-302',
+                    price: 43.29
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
+                    name:  'SWS-305',
+                    price: 37.60
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
+                    name:  'SWS-311',
+                    price: 59.99
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-305-Tek-Kanat-copy.jpg',
+                    name:  'SWS-305',
+                    price: 37.60
+    
+                },
+                {
+                    uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-311-Yarim-Kanat-Kisa-copy.jpg',
+                    name:  'SWS-311',
+                    price: 59.99
+    
+                }
+            ]
+        ]
+    }
+]
+
 export {
     mockData,
-    mockSections
+    mockSections,
+    mockSectionForProductPage
 }

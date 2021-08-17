@@ -36,8 +36,9 @@ function CartPage({ dispatch, cartItems }) {
                             name={item.name}
                             price={item.price}
                             optionalDetails={item.optionalDetails}
-                            onClose={onProductViewClose}/>
+                            onClose={() => onProductViewClose(item.name)}/>
                         }
+                        keyExtractor={item => item.name}
                         ListHeaderComponent={<Header numOfCartItems={cartItems.length}/>}
                         // contentContainerStyle={{ flexGrow: 1 }}
                     />
@@ -77,15 +78,14 @@ const mainStyles = StyleSheet.create({
         flex: 1,
         position: 'relative',
         backgroundColor: '#3F3F3F',
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-        borderWidth: 2,
-        borderColor: 'green'
+        // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+       
 
     },
 
     inner: {
         flex: 1,
-        marginTop: 30,
+        // marginTop: 30,
         width: '100%',
         marginVertical: 15,
         paddingHorizontal: 11

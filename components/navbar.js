@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, StatusBar} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+// import Constants from 'expo-constants';
+
+
 
 export default function NavBar({withHomeIcon, withAccountBtn}) {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -10,9 +13,10 @@ export default function NavBar({withHomeIcon, withAccountBtn}) {
 
     return (
         <View style={{
-         position: 'absolute',
+        //  position: 'absolute',
          zIndex: 3,
-         top: 0,
+        //  top: Constants.statusBarHeight,
+        marginTop: StatusBar.currentHeight,
           width: '100%',
          flexDirection: 'row',
           paddingHorizontal: 11,

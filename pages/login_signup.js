@@ -1,24 +1,40 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  TouchableWithoutFeedback,
+  StatusBar
+ } from 'react-native';
 import TermsAndConditions from '../components/terms_and_conditions';
 import Copyright from '../components/copyright';
 import OverlaySVG from '../assets/svg/svg-overlay.svg';
 import AddUserSVG from '../assets/svg/undraw_Add_user_re_5oib.svg';
 
-export default function LoginSignup() {
+export default function LoginSignup({ navigation }) {
 
     return (
         <View style={styles.container}>
-    <OverlaySVG width="100%"/>
-    <View style={styles.adduser}>
-      <AddUserSVG width="100%" fill="#ff8b37"/>
+          
+    <View style={styles.upper}>
+        
+      <View style={styles.overlaysvg}>
+        <OverlaySVG width="100%"/>
+      </View>
+      <View style={styles.adduser}>
+        <AddUserSVG width="100%" fill="#ff8b37"/>
+      </View>
+      <TouchableWithoutFeedback >
+          <Text style={styles.skipbtn}>Skip</Text>
+        </TouchableWithoutFeedback>
     </View>
     <View style={styles.bottomDiv}>
       
         <TouchableOpacity style={styles.createacctBtn}>
           <Text style={styles.createacctBtnText}>Create Account</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.loginBtn}>
+        <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Login')}>
           <Text style={styles.loginBtnText}>Log In</Text>
         </TouchableOpacity>
 
@@ -39,6 +55,18 @@ const styles = StyleSheet.create({
       fontSize: 12,
       fontFamily: 'OpenSans_400Regular',
       backgroundColor: '#3F3F3F'
+    },
+
+    skipbtn: {
+      position: 'absolute', 
+      top: StatusBar.currentHeight,
+      right: 7,
+      color: 'black',
+      alignItems: 'flex-start'
+    },
+
+    overlaysvg: {
+      // flex: 1
     },
   
     adduser: {

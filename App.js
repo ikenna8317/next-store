@@ -11,9 +11,11 @@ import  rootReducer  from './redux_side/reducers';
 import { useFonts, OpenSans_400Regular, OpenSans_300Light, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans';
 import { Roboto_400Regular,  Roboto_500Medium } from '@expo-google-fonts/roboto';
 
-import DrawerNav from './drawerNav'
+// Root app navigation pages
+import DrawerNav from './navs/drawerNav'
 import LoginSignup from './pages/login_signup';
 import ProductPage from './pages/product'
+import Login from './pages/login'
 
 
 const globalInitState = {
@@ -41,10 +43,23 @@ export default function App() {
     return (
       <Provider store={store}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="DrawerNav" screenOptions={{headerShown: false}}>
-              <Stack.Screen name="DrawerNav" component={DrawerNav}/>
-              <Stack.Screen name="LoginSignup" component={LoginSignup}/>
-              <Stack.Screen name="ProductPage" component={ProductPage}/>
+            <Stack.Navigator initialRouteName="LoginSignup" screenOptions={{
+              title: null,
+              headerStyle: {
+              // paddingHorizontal: 11,
+              // paddingVertical: 11,
+              backgroundColor: '#5E5E5E',
+            },
+            headerTintColor: '#e3e3e3',
+            }}>
+                <Stack.Screen name="DrawerNav" component={DrawerNav} options={{
+                  headerShown: false
+                }}/>
+                <Stack.Screen name="LoginSignup" component={LoginSignup} options={{
+                  headerShown: false
+                }}/>
+                <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="ProductPage" component={ProductPage}/>
             </Stack.Navigator>
           </NavigationContainer>
        
@@ -53,3 +68,8 @@ export default function App() {
 }
 }
 
+// headerLeft: ({navigation}) => (
+//   <TouchableOpacity style={{marginLeft: 12}} onPress={() => navigation.openDrawer()}>
+//       <Feather name="menu" size={24} color="#E3E3E3" />
+//   </TouchableOpacity>
+// )

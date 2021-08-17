@@ -4,12 +4,12 @@ import {
     FlatList, 
     TouchableOpacity,
     StyleSheet, 
-    Platform, 
-    StatusBar, 
     Text, 
     Image, 
     
 } from 'react-native';
+// import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
+
 import { connect } from 'react-redux';
 // import { gl_setFocusedProduct } from '../redux_side/action_creators'
 import { useNavigation } from '@react-navigation/native';
@@ -37,6 +37,7 @@ function Home({ searchQuery }) {
         //contentContainerStyle={["alignItems"]}
         <View style={styles.container} >
 
+            {/* <ExpoStatusBar style="light"/> */}
             
             <NavBar withHomeIcon={false} withAccountBtn={true}/>
             <View style={styles.inner}>
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
        
         backgroundColor: '#3F3F3F',
-        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 
+        // paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0 
     },
 
     inner: {

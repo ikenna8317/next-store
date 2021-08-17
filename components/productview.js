@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function ProductView({ uri, name, price, quantity, optionalDetails, onClose }) {
 
     const navigation = useNavigation()
-    navigation.navigate('ProductPage', { uri, name, price, quantity })
+    
     return (
         <TouchableOpacity onPress={() => navigation.navigate('ProductPage', { uri, name, price, quantity })}>
             <View style={styles.viewContainer}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         height: 130,
-        marginBottom: 18
+        marginVertical: 12
     },
 
     closeBtn: {
