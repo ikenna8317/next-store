@@ -13,13 +13,21 @@ export default function Login() {
     return (
         <View style={styles.main}>
           
-            <InputField label='Email Address'/>
-            <InputField label='Password' isSecure={true}/>
+            <CustomInputField label='Email Address'/>
+            <CustomInputField label='Password' isSecure={true}/>
             <TouchableWithoutFeedback>
                 <Text style={styles.forgotPassword}>Forgot Password</Text>
             </TouchableWithoutFeedback>
             <MainThemeBtn value='Log In'/>
 
+        </View>
+    )
+}
+
+function CustomInputField({label, isSecure}) {
+    return (
+        <View style={{ marginBottom: 36 }}>
+            <InputField label={label} isSecure={isSecure}/>
         </View>
     )
 }

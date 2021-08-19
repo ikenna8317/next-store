@@ -11,11 +11,12 @@ import  rootReducer  from './redux_side/reducers';
 import { useFonts, OpenSans_400Regular, OpenSans_300Light, OpenSans_600SemiBold } from '@expo-google-fonts/open-sans';
 import { Roboto_400Regular,  Roboto_500Medium } from '@expo-google-fonts/roboto';
 
-// Root app navigation pages
+// Root app navigation pages and navs
 import DrawerNav from './navs/drawerNav'
 import LoginSignup from './pages/login_signup';
 import ProductPage from './pages/product'
 import Login from './pages/login'
+import CreateAcctStack from './navs/createAcctStack';
 
 
 const globalInitState = {
@@ -59,6 +60,8 @@ export default function App() {
                   headerShown: false
                 }}/>
                 <Stack.Screen name="Login" component={Login}/>
+                <Stack.Screen name="CreateAcctStack" component={CreateAcctStack}/>
+
                 <Stack.Screen name="ProductPage" component={ProductPage}/>
             </Stack.Navigator>
           </NavigationContainer>

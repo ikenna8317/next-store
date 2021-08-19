@@ -7,19 +7,19 @@ import {
 } from 'react-native'
 
 
-// Custom Input field
-
-export default function InputField({label, isSecure}) {
+export default function InputField({label, isSecure, dropdownList}) {
     const [input, onChangeInput] = useState(null)
 
     return (
-        <View style={styles.main}>
+        <View>
             <Text style={styles.label}>{label}</Text>
+            {
+                
+            }
             <TextInput
             style={styles.input}
             value={input}
             onChangeText={onChangeInput}
-            // secureTextEntry={true}
             secureTextEntry={isSecure}
             />
         </View>
@@ -27,9 +27,6 @@ export default function InputField({label, isSecure}) {
 }
 
 const styles = StyleSheet.create({
-    main: {
-        marginBottom: 36
-    },
 
     label: {
         fontSize: 17,

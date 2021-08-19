@@ -31,7 +31,7 @@ export default function LoginSignup({ navigation }) {
     </View>
     <View style={styles.bottomDiv}>
       
-        <TouchableOpacity style={styles.createacctBtn}>
+        <TouchableOpacity style={styles.createacctBtn} onPress={() => navigation.navigate('CreateAcctStack')}>
           <Text style={styles.createacctBtnText}>Create Account</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.loginBtn} onPress={() => navigation.navigate('Login')}>
