@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
     StyleSheet, 
     Text, 
@@ -10,6 +10,10 @@ import InputField from '../components/input_field'
 import MainThemeBtn from '../components/action_btn';
 
 export default function Login() {
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
+
+
     return (
         <View style={styles.main}>
           

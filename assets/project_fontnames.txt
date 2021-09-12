@@ -1,0 +1,9 @@
+OpenSans_400Regular, 
+
+OpenSans_600SemiBold, 
+
+Roboto_400Regular,  
+
+Roboto_500Medium, 
+
+OpenSans_300Light
