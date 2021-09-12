@@ -8,6 +8,9 @@ export default function rootReducer(state, action) {
             return { ...state, searchQuery: action.payload }
 
         //TODO: fix
+        case constants.UPDATE_USER_CRED:
+            return { ...state, userCred: action.payload }
+            
         case constants.LOGIN_SUCCESS:
             return {...state, userCred: action.payload}
 

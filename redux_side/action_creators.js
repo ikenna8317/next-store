@@ -8,6 +8,13 @@ function gl_setSearchQuery(searchQuery) {
 }
 
 // TODO: 
+function gl_updateUserCred(userCred) {
+    return {
+        type: constants.UPDATE_USER_CRED,
+        payload: userCred
+    }
+}
+
 function gl_setLoginSuccess(userCred) {
     return {
         type: constants.LOGIN_SUCCESS,
@@ -46,7 +53,8 @@ function gl_removeFromFavorites(pid) {
 }
 
 export { 
-    gl_setSearchQuery, 
+    gl_setSearchQuery,
+    gl_updateUserCred, 
     gl_setLoginSuccess, 
     gl_addToCart, 
     gl_removeFromCart, 

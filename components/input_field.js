@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { 
     Text, 
     View, 
@@ -6,15 +6,20 @@ import {
     StyleSheet
 } from 'react-native'
 
+import Dropdown from './dropdown';
 
-export default function InputField({label, isSecure, dropdownList}) {
+
+export default function InputField({label, isSecure, callback, dropdownLabel, dropdownList}) {
     const [input, onChangeInput] = useState(null)
+
+    useEffect(() => callback(input), [input])
 
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
             {
-                
+                dropdownLabel ?
+                <CustomDropdown label={dropdownLabel} options={dropdownList}/> : null
             }
             <TextInput
             style={styles.input}
@@ -25,6 +30,15 @@ export default function InputField({label, isSecure, dropdownList}) {
         </View>
     )
 }
+
+function CustomDropdown({label, options}) {
+    return (
+        <View style={{marginLeft: 7, marginBottom: 11}}>
+            <Dropdown label={label} options={options}/>
+        </View>
+    )
+}
+
 
 const styles = StyleSheet.create({
 

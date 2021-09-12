@@ -18,12 +18,16 @@ import ProductPage from './pages/product'
 import Login from './pages/login'
 import CreateAcctStack from './navs/createAcctStack';
 
+// import {decode, encode} from 'base-64'
+// if (!global.btoa) {  global.btoa = encode }
+// if (!global.atob) { global.atob = decode }
 
 const globalInitState = {
   searchQuery: null,
   userCred: null,
   cartItems: [],
-  favItems: []
+  favItems: [],
+  
 }
 
 
