@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { 
     StyleSheet, 
     Text, 
@@ -6,32 +7,71 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 
-import InputField from '../components/input_field'
-import MainThemeBtn from '../components/action_btn';
+import { firebase } from '../config'
+import { gl_updateUserCred } from '../redux_side/action_creators'
 
-export default function Login() {
+import InputField from '../components/input_field'
+import { MainThemeBtn, SecondaryThemeBtn } from '../components/action_btn'
+
+function Login({ navigation, dispatch }) {
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
 
+    const onPressLogin = () => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((response) => {
+                const uid = response.user.uid
+                const usersRef = firebase.firestore().collection('users')
+                usersRef
+                    .doc(uid)
+                    .get()
+                    .then(firestoreDocument => {
+                        if (!firestoreDocument.exists) {
+                            alert("The user does not exist.")
+                            return;
+                        }
+                        const user = firestoreDocument.data()
+                        dispatch(gl_updateUserCred(user))
+                        navigation.navigate('DrawerNav')
+                    })
+                    .catch(error => {
+                        alert(error)
+                    });
+            })
+            .catch(error => {
+                alert(error)
+            })
+    }
+
+    const onPressCancel = () => {
+        navigation.navigate('LoginSignup')
+    }
 
     return (
         <View style={styles.main}>
           
-            <CustomInputField label='Email Address'/>
-            <CustomInputField label='Password' isSecure={true}/>
+            <CustomInputField label='Email Address' callback={email => setEmail(String(email).trim())}/>
+            <CustomInputField label='Password' isSecure={true} callback={password => setPassword(password)}/>
             <TouchableWithoutFeedback>
-                <Text style={styles.forgotPassword}>Forgot Password</Text>
+                <Text style={styles.forgotPassword}>Reset password</Text>
             </TouchableWithoutFeedback>
-            <MainThemeBtn value='Log In'/>
-
+            <View style={{ bottom: 0, flexDirection: 'row', justifyContent: 'space-between'}}>                
+                <SecondaryThemeBtn value="Cancel" onPress={() => onPressCancel()}/>
+                <View style={{flex: 1}}/>           
+                <MainThemeBtn value="Continue" onPress={() => onPressLogin()}/>
+            </View>
         </View>
     )
 }
 
-function CustomInputField({label, isSecure}) {
+export default connect()(Login)
+
+function CustomInputField({label, isSecure, callback}) {
     return (
         <View style={{ marginBottom: 36 }}>
-            <InputField label={label} isSecure={isSecure}/>
+            <InputField label={label} isSecure={isSecure} callback={callback}/>
         </View>
     )
 }
@@ -40,7 +80,7 @@ const styles = StyleSheet.create({
     main: {
         padding: 32,
         height: '100%',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         backgroundColor: '#3F3F3F'
     },
 

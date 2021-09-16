@@ -41,7 +41,7 @@ function CreateAccountForm({ navigation, dispatch }) {
          const validateEmail = (email) => {
             const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-            if (emailRegex.test(String(email).toLowerCase().trim())) {
+            if (emailRegex.test(String(email).trim())) {
                 return true
             }
             alert('Please make sure your email address is in the correct format e.g. \'olowu@domain.com\'')
@@ -115,7 +115,7 @@ function CreateAccountForm({ navigation, dispatch }) {
                     .then(() => {
                         //update the redux store with the user credentials
                         dispatch(gl_updateUserCred(data))
-                        navigation.navigate('Home')
+                        navigation.navigate('DrawerNav')
                     })
                     .catch((error) => {
                         alert(error)

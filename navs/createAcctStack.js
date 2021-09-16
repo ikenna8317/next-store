@@ -13,7 +13,7 @@ export default function CreateAcctStack() {
             headerShown: false
           }}>
               {/* //NOTE: signup form might have to get removed */}
-            <Stack.Screen name="SignupPicker" component={SignupPicker} />
+            {/* <Stack.Screen name="SignupPicker" component={SignupPicker} /> */}
             <Stack.Screen name="CreateAcctForm" component={CreateAccountForm} />
 
         </Stack.Navigator>
