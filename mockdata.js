@@ -1,3 +1,4 @@
+//for home page search results
 const mockData = [
     {
         uri: 'https://swisstradezu.com/wp-content/uploads/2019/05/SWS-302-Cift-Kanat-Kisa-copy-300x300.jpg',
@@ -42,6 +43,7 @@ const mockData = [
     }
 ]
 
+//for home page categories
 const mockSections = [
     {
         title: 'Most Popular',

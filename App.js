@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
-import { createStore } from 'redux';
+// import { configureStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native'
 
-import { firebase } from './config'
+import { auth } from './config'
 
 import AppLoading from 'expo-app-loading';
 import { connect } from 'react-redux'
@@ -21,28 +22,39 @@ import ProductPage from './pages/product'
 import Login from './pages/login'
 import CreateAcctStack from './navs/createAcctStack';
 
-// import {decode, encode} from 'base-64'
-// if (!global.btoa) {  global.btoa = encode }
-// if (!global.atob) { global.atob = decode }
-
 const globalInitState = {
-  searchQuery: null,
-  userCred: null,
-  cartItems: [],
-  favItems: [],
+  searchQuery: null,  //search bar text input
+  userCred: null,     //User credentials obtained by creating or logging in, grants more functionality like making purchases
+  skipAuth: false,    //boolean; if true, allows the user to skip authentication and browse the app with limited functionality 
+  cartItems: [],      //list of shopping cart objects; can only buy items in the shopping cart
+  favItems: [],       //list of products added to favorites 
   
 }
 
 
-const store = createStore(rootReducer, globalInitState);
+const store = configureStore({ reducer: rootReducer, preloadedState: globalInitState });  //rootReducer, globalInitState
 
 const Stack = createStackNavigator()
 
 
-function AppContent({ dispatch, userCred }) {
+function AppContent({ dispatch, userCred, skipAuth }) {
 
   let [fontsLoaded] = useFonts({OpenSans_400Regular, OpenSans_600SemiBold, Roboto_400Regular,  Roboto_500Medium, OpenSans_300Light});
 
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+      const { uid, email } = user
+      dispatch(gl_updateUserCred({uid, email}))
+      // ...
+    } else {
+      // User is signed out
+      // ...
+      dispatch(gl_updateUserCred(null))
+    }
+  });
   // useEffect(() => {
   //   const usersRef = firebase.firestore().collection('users');
   //   firebase.auth().onAuthStateChanged(user => {
@@ -66,21 +78,22 @@ function AppContent({ dispatch, userCred }) {
   }
 
   else {
+    // console.debug(`skipAuth: ${skipAuth}`)
     return (
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="LoginSignup" screenOptions={{
+            <Stack.Navigator screenOptions={{
               title: null,
               headerStyle: {
-              backgroundColor: '#5E5E5E',
-            },
-            headerTintColor: '#e3e3e3',
+                backgroundColor: '#5E5E5E',
+              },
+              headerTintColor: '#e3e3e3',
             }}>
                 {
                   /*
-                  take the user to the main app drawer nav if already authenticated,
+                  take the user to the main app drawer nav IF already authenticated or skipAuth flag is set to true,
                    else redirect them to the login-signup picker screen
                    */
-                  userCred ? (
+                  (userCred || skipAuth) ? (
                     <Stack.Screen name="DrawerNav" component={DrawerNav} options={{
                       headerShown: false
                     }}/>
@@ -91,6 +104,9 @@ function AppContent({ dispatch, userCred }) {
                     }}/>
                   )
                 }
+                 {/* <Stack.Screen name="DrawerNav" component={DrawerNav} options={{
+                      headerShown: false
+                    }}/> */}
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="CreateAcctStack" component={CreateAcctStack}/>
 
@@ -103,7 +119,8 @@ function AppContent({ dispatch, userCred }) {
 }
 
 const mapStateToProps = state => ({
-    userCred: state.userCred
+    userCred: state.userCred,
+    skipAuth: state.skipAuth
 })
 
 const ReduxApp = connect(mapStateToProps)(AppContent)

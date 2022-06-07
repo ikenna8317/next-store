@@ -1,0 +1,19 @@
+{
+  "name": "products/swd-1015.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454551563,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "8cf73581-d3de-4d25-9783-7bfcd6a827f8"
+  ],
+  "timeCreated": "2021-10-05T17:22:31.562Z",
+  "updated": "2021-10-05T17:22:31.562Z",
+  "size": 10067,
+  "md5Hash": "aYY9zNVQBuw00YbsZ3wjmw==",
+  "crc32c": "2445278219"
+}

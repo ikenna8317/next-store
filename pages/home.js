@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     View,
     FlatList, 
@@ -8,9 +8,12 @@ import {
     Image, 
     
 } from 'react-native';
-// import { StatusBar as ExpoStatusBar } from 'expo-status-bar'
+// import { StatusBar } from 'expo-status-bar'
 
+import { db } from '../config'
 import { connect } from 'react-redux';
+import { gl_setSearchQuery } from '../redux_side/action_creators';
+
 // import { gl_setFocusedProduct } from '../redux_side/action_creators'
 import { useNavigation } from '@react-navigation/native';
 
@@ -21,6 +24,8 @@ import SearchBar from '../components/searchbar.js';
 import ProductCategorySect from '../components/productCategory.js';
 import Logo from '../assets/svg/NEXT.svg';
 
+import { Ionicons } from '@expo/vector-icons';
+
 //Rule for images within VirtualizedLists i.e. SectionLists, FlatLists, ...
 // is that their width should be [(width of image in design / width of phone frame in design) * 100] percent to accomodate for as much screen size as possible
 // const {screenWidth, screenHeight} = Dimensions.get('window');
@@ -29,9 +34,11 @@ import Logo from '../assets/svg/NEXT.svg';
 //fetch data here
 
 
-function Home({ searchQuery }) {
+function Home({ dispatch, searchQuery }) {
     
-    const [hasQueried, setHasQueried] = useState(true);
+    //TODO: reprogram this variable
+    // const [inQueryMode, setHasQueried] = useState(false);
+    
 
     return (
         //contentContainerStyle={["alignItems"]}
@@ -44,11 +51,23 @@ function Home({ searchQuery }) {
                 <View style={styles.logoWrapper}>
                     <Logo width="100%"/>
                 </View>
+                
                 <SearchBar/>
             </View>
            
             {
-                hasQueried ? <SearchResults searchQuery={searchQuery} searchRes={mockData}/> : <ProductCategorySect data={mockSections}/>
+                searchQuery ? 
+                <View>
+                    <TouchableOpacity onPress={() => dispatch(gl_setSearchQuery(null))} style={{ flexDirection: 'row', padding: 5, marginTop: 5, borderRadius: 6, alignSelf: 'center', backgroundColor: '#141414'}}>
+                        <Ionicons name="return-up-back" size={24} color="white" />
+                        <Text style={{ color: 'white', marginLeft: 2 }}>Return to product categories</Text>
+                    </TouchableOpacity>
+                    <SearchResults searchQuery={searchQuery} searchRes={mockData}/>
+                </View>
+                 
+                : 
+                
+                <ProductCategorySect data={mockSections}/>
             }
 
         </View>
@@ -81,7 +100,7 @@ function SRGrid({data, dispatch}) {
     )
 }
 
-function SRGridItem({dispatch, uri, name, price, quantity}) {
+function SRGridItem({ uri, name, price, quantity}) {
     //marginHorizontal: 23, width: `${SRGridImageWidthPercent}%`
 
     const navigation = useNavigation();
@@ -111,6 +130,9 @@ function SRGridItem({dispatch, uri, name, price, quantity}) {
 }
 
 function SearchResults({searchQuery, searchRes, dispatch}) {
+
+    const doorsRef = db.collection('doors')
+
     return (
         <View style={styles.searchResContainer}>
             <View style={{alignItems: 'center', marginBottom: 21}}>
@@ -153,7 +175,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: 'center',
         width: '100%',
-        marginTop: 33
+        marginTop: 15
 
     },
 

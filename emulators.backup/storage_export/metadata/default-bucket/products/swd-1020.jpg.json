@@ -1,0 +1,19 @@
+{
+  "name": "products/swd-1020.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454546368,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "41ee2ef6-6a78-4700-9c39-217fc4854e1a"
+  ],
+  "timeCreated": "2021-10-05T17:22:26.367Z",
+  "updated": "2021-10-05T17:22:26.367Z",
+  "size": 11717,
+  "md5Hash": "tLx/VGlvC5PhjjCPnjikyw==",
+  "crc32c": "1419177579"
+}

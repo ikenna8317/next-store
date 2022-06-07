@@ -1,0 +1,5 @@
+*rn = react-native
+
+Name			Version
+--------------------    -----------
+rn-safe-area-context: 	4.2.4

@@ -10,6 +10,9 @@ export default function rootReducer(state, action) {
         //TODO: fix
         case constants.UPDATE_USER_CRED:
             return { ...state, userCred: action.payload }
+
+        case constants.SKIP_AUTH:
+            return { ...state, skipAuth: action.payload }
             
         case constants.LOGIN_SUCCESS:
             return {...state, userCred: action.payload}

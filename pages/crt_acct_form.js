@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import {
     View,
     ScrollView,
+    ToastAndroid,
     // Alert,
     StyleSheet
 } from 'react-native'
 
-import { firebase } from '../config'
+import { auth } from '../config'
 import { gl_updateUserCred } from '../redux_side/action_creators'
 import { connect } from 'react-redux'
 
@@ -97,29 +98,19 @@ function CreateAccountForm({ navigation, dispatch }) {
     const onPressContinue = () => {
         if(validateInput(usin)) {
             //send the validated input to server
-            firebase
-            .auth()
-            .createUserWithEmailAndPassword(usin.email, usin.password)
+            
+            
+            auth.createUserWithEmailAndPassword(usin.email, usin.password)
             .then((response) => {
-                const uid = response.user.uid
+                const user = response.user
+                // const { uid, email } = user
                 const data = {
-                    id: uid,
-                    email: usin.email,
-                    name: usin.name,
-                    phone: usin.phone
+                    id: user.uid,
+                    email: user.email,
                 };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        //update the redux store with the user credentials
-                        dispatch(gl_updateUserCred(data))
-                        navigation.navigate('DrawerNav')
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
+                dispatch(gl_updateUserCred(data))
+                ToastAndroid.show('Your account has been successfully created', ToastAndroid.SHORT)               
+                navigation.navigate('DrawerNav')
             })
             .catch((error) => {
                 alert(error)

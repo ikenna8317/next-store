@@ -7,7 +7,7 @@ import {
     TouchableWithoutFeedback
 } from 'react-native'
 
-import { firebase } from '../config'
+import { auth } from '../config'
 import { gl_updateUserCred } from '../redux_side/action_creators'
 
 import InputField from '../components/input_field'
@@ -18,27 +18,12 @@ function Login({ navigation, dispatch }) {
     const [password, setPassword] = useState(null)
 
     const onPressLogin = () => {
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
+            auth.signInWithEmailAndPassword(email, password)
             .then((response) => {
-                const uid = response.user.uid
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .get()
-                    .then(firestoreDocument => {
-                        if (!firestoreDocument.exists) {
-                            alert("The user does not exist.")
-                            return;
-                        }
-                        const user = firestoreDocument.data()
-                        dispatch(gl_updateUserCred(user))
-                        navigation.navigate('DrawerNav')
-                    })
-                    .catch(error => {
-                        alert(error)
-                    });
+               
+               const {uid, email} = response.user
+               dispatch(gl_updateUserCred({uid, email}))
+               navigation.navigate('DrawerNav')
             })
             .catch(error => {
                 alert(error)

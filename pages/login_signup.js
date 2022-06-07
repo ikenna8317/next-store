@@ -7,12 +7,17 @@ import {
   TouchableWithoutFeedback,
   StatusBar
  } from 'react-native';
+
+import { connect } from 'react-redux';
+import { gl_allowSkipAuth } from '../redux_side/action_creators';
+
+//UI components
 import TermsAndConditions from '../components/terms_and_conditions';
 import Copyright from '../components/copyright';
 import OverlaySVG from '../assets/svg/svg-overlay.svg';
 import AddUserSVG from '../assets/svg/undraw_Add_user_re_5oib.svg';
 
-export default function LoginSignup({ navigation }) {
+function LoginSignup({ navigation, dispatch }) {
 
     return (
         <View style={styles.container}>
@@ -25,7 +30,12 @@ export default function LoginSignup({ navigation }) {
       <View style={styles.adduser}>
         <AddUserSVG width="100%" fill="#ff8b37"/>
       </View>
-      <TouchableWithoutFeedback >
+      <TouchableWithoutFeedback onPress={() => {
+        // set skipAuth in global redux store/state to true and then navigate to DN
+        dispatch(gl_allowSkipAuth())
+        // console.debug('skip btn pressed')
+        navigation.navigate('DrawerNav')
+      }}>
           <Text style={styles.skipbtn}>Skip</Text>
         </TouchableWithoutFeedback>
     </View>
@@ -49,6 +59,8 @@ export default function LoginSignup({ navigation }) {
     )
 }
 
+export default connect()(LoginSignup)
+
 const styles = StyleSheet.create({
     container: { 
       flex: 1,
@@ -62,7 +74,8 @@ const styles = StyleSheet.create({
       top: StatusBar.currentHeight,
       right: 7,
       color: 'black',
-      alignItems: 'flex-start'
+      alignItems: 'flex-start',
+      fontSize: 16
     },
 
     overlaysvg: {

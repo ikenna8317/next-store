@@ -1,0 +1,19 @@
+{
+  "name": "products/sws-312.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454576769,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "3c1d4d3b-90f0-4a94-9e1c-4f9f05d9a6d0"
+  ],
+  "timeCreated": "2021-10-05T17:22:56.768Z",
+  "updated": "2021-10-05T17:22:56.768Z",
+  "size": 14000,
+  "md5Hash": "Auk/sLQ6uC3rbyZcP8bcnA==",
+  "crc32c": "1430980209"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "products/swd-1004.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454564800,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "89758636-f7a2-4bd8-83c5-7b4dd0798ce9"
+  ],
+  "timeCreated": "2021-10-05T17:22:44.799Z",
+  "updated": "2021-10-05T17:22:44.799Z",
+  "size": 7620,
+  "md5Hash": "D9/28F+wr3LrkFVHukjlNg==",
+  "crc32c": "573151995"
+}

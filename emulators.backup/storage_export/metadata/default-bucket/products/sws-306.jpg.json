@@ -1,0 +1,19 @@
+{
+  "name": "products/sws-306.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454584231,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "ae2864a6-5858-49de-9c2d-a9d25bae5742"
+  ],
+  "timeCreated": "2021-10-05T17:23:04.230Z",
+  "updated": "2021-10-05T17:23:04.230Z",
+  "size": 15424,
+  "md5Hash": "xqRb8XNT4/4s0atFRLjDjw==",
+  "crc32c": "724127853"
+}

@@ -52,9 +52,17 @@ function gl_removeFromFavorites(pid) {
     }
 }
 
+function gl_allowSkipAuth() {
+    return {
+        type: constants.SKIP_AUTH,
+        payload: true
+    }
+}
+
 export { 
     gl_setSearchQuery,
-    gl_updateUserCred, 
+    gl_updateUserCred,
+    gl_allowSkipAuth, 
     gl_setLoginSuccess, 
     gl_addToCart, 
     gl_removeFromCart, 

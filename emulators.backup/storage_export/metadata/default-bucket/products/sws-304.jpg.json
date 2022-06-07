@@ -1,0 +1,19 @@
+{
+  "name": "products/sws-304.jpg",
+  "bucket": "default-bucket",
+  "contentType": "image/jpeg",
+  "metageneration": 1,
+  "generation": 1633454593946,
+  "storageClass": "STANDARD",
+  "etag": "someETag",
+  "contentDisposition": "inline",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "fa52eae4-8f1a-4cab-9a60-0c21daa6bffe"
+  ],
+  "timeCreated": "2021-10-05T17:23:13.945Z",
+  "updated": "2021-10-05T17:23:13.946Z",
+  "size": 9142,
+  "md5Hash": "vaTKlkk0mKF2WCQlVQxPZw==",
+  "crc32c": "2537727229"
+}
