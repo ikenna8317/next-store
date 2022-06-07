@@ -27,7 +27,7 @@ const firebaseConfig = {
 // const app = initializeApp(firebaseConfig)
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
-    console.log('a')
+    console.log('Firebase initialized')
 } else {
     firebase.app()
     console.log('b')
