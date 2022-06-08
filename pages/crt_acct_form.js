@@ -20,9 +20,9 @@ import { MainThemeBtn, SecondaryThemeBtn } from '../components/action_btn'
 function CreateAccountForm({ navigation, dispatch }) {
 
     const [usin, setUserInput] = useState({
-        name: null,
+        // name: null,
         email: null,
-        phone: null,
+        // phone: null,
         password: null,
         confirmPassword: null
     })
@@ -36,7 +36,6 @@ function CreateAccountForm({ navigation, dispatch }) {
                 return false
             }
         }
-        // console.log()
 
          //make sure the email address entered looks like an actual one
          const validateEmail = (email) => {
@@ -50,15 +49,15 @@ function CreateAccountForm({ navigation, dispatch }) {
 
         }
 
-        const validatePhoneNumber = (phone) => {
-            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+        // const validatePhoneNumber = (phone) => {
+        //     const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
 
-            if (phoneRegex.test(String(phone).toLowerCase().trim())) {
-                return true
-            }
-            alert('Please make sure your phone number consists mainly of numbers and is atleast 9 digits. (Parentheses and line strokes are also acceptable)')
-            return false
-        }
+        //     if (phoneRegex.test(String(phone).toLowerCase().trim())) {
+        //         return true
+        //     }
+        //     alert('Please make sure your phone number consists mainly of numbers and is atleast 9 digits. (Parentheses and line strokes are also acceptable)')
+        //     return false
+        // }
 
         /*
          make sure the password entered is minimum of 8 characters,
@@ -82,13 +81,13 @@ function CreateAccountForm({ navigation, dispatch }) {
             if (usin.password === confirmPassword) {
                 return true
             }
-           alert('Please make sure that your \'Password\' field and your \'Confirm Password\' field matches')
+           alert('Please make sure that your \'Password\' field and your \'Confirm Password\' field match')
             return false
         }
 
 
 
-        if (validateEmail(usin.email) && validatePhoneNumber(usin.phone) && validatePassword(usin.password) && validateConfirmPassword(usin.confirmPassword)) {
+        if (validateEmail(usin.email) && validatePassword(usin.password) && validateConfirmPassword(usin.confirmPassword)) {
             return true
         }
        
@@ -107,7 +106,7 @@ function CreateAccountForm({ navigation, dispatch }) {
                 const data = {
                     uid,
                     email: usin.email,
-                    name: usin.name
+                    // name: usin.name
                 };
                 dispatch(gl_updateUserCred(data))
                 ToastAndroid.show('Your account has been successfully created', ToastAndroid.SHORT)               
@@ -125,14 +124,14 @@ function CreateAccountForm({ navigation, dispatch }) {
     
     return (
         <ScrollView style={styles.main}>
-            <CustomInputField label="Name" callback={name => setUserInput({...usin, name})}/>      
+            {/* <CustomInputField label="Name" callback={name => setUserInput({...usin, name})}/>       */}
             <CustomInputField label="Email" callback={email => setUserInput({...usin, email})}/>
-            <CustomInputField
+            {/* <CustomInputField
              label="Phone"
              callback={phone => setUserInput({...usin, phone})}
              dropdownLabel="Area code"
              dropdownList={['+234']}
-            />
+            /> */}
             <CustomInputField
              callback={password => setUserInput({...usin, password})}
              label="Password"
