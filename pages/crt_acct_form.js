@@ -102,11 +102,12 @@ function CreateAccountForm({ navigation, dispatch }) {
             
             auth.createUserWithEmailAndPassword(usin.email, usin.password)
             .then((response) => {
-                const user = response.user
+                const uid = response.user.uid
                 // const { uid, email } = user
                 const data = {
-                    id: user.uid,
-                    email: user.email,
+                    uid,
+                    email: usin.email,
+                    name: usin.name
                 };
                 dispatch(gl_updateUserCred(data))
                 ToastAndroid.show('Your account has been successfully created', ToastAndroid.SHORT)               
@@ -124,7 +125,7 @@ function CreateAccountForm({ navigation, dispatch }) {
     
     return (
         <ScrollView style={styles.main}>
-            <CustomInputField label="Full Name" callback={name => setUserInput({...usin, name})}/>      
+            <CustomInputField label="Name" callback={name => setUserInput({...usin, name})}/>      
             <CustomInputField label="Email" callback={email => setUserInput({...usin, email})}/>
             <CustomInputField
              label="Phone"
