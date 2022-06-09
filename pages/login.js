@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 
 import { auth } from '../config'
+
 import { gl_updateUserCred } from '../redux_side/action_creators'
 
 import InputField from '../components/input_field'
@@ -18,7 +19,7 @@ function Login({ navigation, dispatch }) {
     const [password, setPassword] = useState(null)
 
     const onPressLogin = () => {
-            auth.signInWithEmailAndPassword(email, password)
+            signInWithEmailAndPassword(auth, email, password)
             .then((response) => {
                
                const {uid, email} = response.user
@@ -27,6 +28,7 @@ function Login({ navigation, dispatch }) {
             })
             .catch(error => {
                 alert(error)
+                console.error('Auth error:', error)
             })
     }
 

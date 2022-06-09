@@ -8,6 +8,8 @@ import {
 } from 'react-native'
 
 import { auth } from '../config'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+
 import { gl_updateUserCred } from '../redux_side/action_creators'
 import { connect } from 'react-redux'
 
@@ -20,9 +22,9 @@ import { MainThemeBtn, SecondaryThemeBtn } from '../components/action_btn'
 function CreateAccountForm({ navigation, dispatch }) {
 
     const [usin, setUserInput] = useState({
-        // name: null,
+        name: null,
         email: null,
-        // phone: null,
+        phone: null,
         password: null,
         confirmPassword: null
     })
@@ -44,20 +46,20 @@ function CreateAccountForm({ navigation, dispatch }) {
             if (emailRegex.test(String(email).trim())) {
                 return true
             }
-            alert('Please make sure your email address is in the correct format e.g. \'olowu@domain.com\'')
+            alert('Please make sure your email address is in the correct format e.g. \'olowu@yahoo.com\'')
             return false
 
         }
 
-        // const validatePhoneNumber = (phone) => {
-        //     const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+        const validatePhoneNumber = (phone) => {
+            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
 
-        //     if (phoneRegex.test(String(phone).toLowerCase().trim())) {
-        //         return true
-        //     }
-        //     alert('Please make sure your phone number consists mainly of numbers and is atleast 9 digits. (Parentheses and line strokes are also acceptable)')
-        //     return false
-        // }
+            if (phoneRegex.test(String(phone).toLowerCase().trim())) {
+                return true
+            }
+            alert('Please make sure your phone number consists mainly of numbers and is atleast 9 digits. (Parentheses and line strokes are also acceptable)')
+            return false
+        }
 
         /*
          make sure the password entered is minimum of 8 characters,
@@ -87,7 +89,7 @@ function CreateAccountForm({ navigation, dispatch }) {
 
 
 
-        if (validateEmail(usin.email) && validatePassword(usin.password) && validateConfirmPassword(usin.confirmPassword)) {
+        if (validateEmail(usin.email) && validatePhoneNumber(usin.phone) && validatePassword(usin.password) && validateConfirmPassword(usin.confirmPassword)) {
             return true
         }
        
@@ -98,8 +100,7 @@ function CreateAccountForm({ navigation, dispatch }) {
         if(validateInput(usin)) {
             //send the validated input to server
             
-            
-            auth.createUserWithEmailAndPassword(usin.email, usin.password)
+            createUserWithEmailAndPassword(auth, usin.email, usin.password)
             .then((response) => {
                 const uid = response.user.uid
                 // const { uid, email } = user
@@ -114,6 +115,7 @@ function CreateAccountForm({ navigation, dispatch }) {
             })
             .catch((error) => {
                 alert(error)
+                console.error(error)
         });
         }
     }

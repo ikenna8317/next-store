@@ -1,11 +1,12 @@
-import * as firebase from 'firebase';
-import '@firebase/auth';
-import '@firebase/firestore';
-import '@firebase/storage'
-// import { initializeApp } from 'firebase/app';
+// import * as firebase from 'firebase';
+// import '@firebase/auth';
+// import '@firebase/firestore';
+// import '@firebase/storage'
+import { initializeApp } from 'firebase/app';
 // import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-// import { getAuth, connectAuthEmulator } from "firebase/auth";
-// import { getStorage, connectStorageEmulator } from "firebase/storage";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
+import { getStorage, connectStorageEmulator } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -24,24 +25,33 @@ const firebaseConfig = {
     
 // }
 
-// const app = initializeApp(firebaseConfig)
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    console.log('Firebase initialized')
-} else {
-    firebase.app()
-    console.log('b')
-}
+const firebaseApp = initializeApp(firebaseConfig)
+
+const auth = getAuth()
+connectAuthEmulator(auth, "http://localhost:9099")
+
+const db = getFirestore()
+connectFirestoreEmulator(db, 'localhost', 9000)
+
+const storage = getStorage()
+connectStorageEmulator(storage, 'localhost', 5001)
+// if (!firebase.apps.length) {
+//     firebase.initializeApp(firebaseConfig);
+//     console.log('Firebase initialized')
+// } else {
+//     firebase.app()
+//     console.log('b')
+// }
 
 
 
 
-const db = firebase.firestore()
+// const db = firebase.firestore()
 
-const storage = firebase.storage();
+// const storage = firebase.storage();
 
-const auth = firebase.auth();
+// const auth = firebase.auth();
 // auth.useEmulator("http://localhost:9099");
 
 
-export { auth, db, storage };
+export { auth, db, storage }
